@@ -1,6 +1,6 @@
 package in.co.rays.proj4.bean;
 
-public class CollegeBean {
+public class CollegeBean extends BaseBean{
 	private String name;
 	private String address;
 	private String state;

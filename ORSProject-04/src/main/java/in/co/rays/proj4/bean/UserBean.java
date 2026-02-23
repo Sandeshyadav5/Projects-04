@@ -2,7 +2,7 @@ package in.co.rays.proj4.bean;
 
 import java.util.Date;
 
-public class UserBean {
+public class UserBean extends BaseBean{
 	private String firstName;
 	private String lastName;
 	private String login;

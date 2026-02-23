@@ -1,5 +1,9 @@
 package in.co.rays.proj4.bean;
 
-public class DropdownListBean {
+public interface DropdownListBean {
+
+	public String getKey();
+
+	public String getValue();
 
 }

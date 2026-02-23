@@ -1,7 +1,12 @@
 package in.co.rays.proj4.testmodel;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import com.mysql.cj.jdbc.IterateBlock;
 
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.model.RoleModel;
@@ -10,10 +15,11 @@ public class TestRoleModel {
 	public static RoleModel model= new RoleModel();
 	public static void main(String[] args) throws Exception {
 //		testNextPk();
-    //    testAdd();
+//        testAdd();
 //	testUpdate();
-//		testDelete();
-	 	testfindByPk();
+		testDelete();
+// 	testfindByPk();
+//		testSearch();
 	}
 	private static void testNextPk() throws Exception{
 		RoleModel r=new RoleModel();
@@ -36,18 +42,22 @@ public class TestRoleModel {
 	}
 	private static void testUpdate() throws Exception {
 		RoleBean bean = new RoleBean();
-		bean.setId(1);
+		bean.setId(4);
 		bean.setName("durgesh");
 		bean.setDescription("ahir");
+		bean.setCreatedBy("admin");
+		bean.setModifiedBy("admin");
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 		model.update(bean);
 		System.out.println("Role Updated Successfully");
 	}
 	private static void testDelete()throws Exception{
 		RoleBean bean = new RoleBean();
-		long pk = 1L;
-		bean.setId(pk);
-		model.update(bean);
-		System.out.println("1 Role Deleted Successfully");
+		
+		bean.setId(4);
+		model.delete(bean);
+		System.out.println(" Role Deleted Successfully");
 	}
 	private static void testfindByPk() throws Exception{
 		RoleBean bean=model.findByPk(1L);
@@ -55,6 +65,19 @@ public class TestRoleModel {
 		System.out.println(bean.getId());
 		System.out.println(bean.getName());
 		System.out.println(bean.getDescription());
+	}
+	private static void testSearch()throws Exception {
+		RoleBean bean=new RoleBean();
+		List list=new ArrayList();
+		bean.setName("student");
+		list=model.search(bean);
+		Iterator it=list.iterator();
+		while(it.hasNext()) {
+			bean=(RoleBean)it.next();
+			System.out.println(bean.getId());
+			System.out.println(bean.getName());
+			System.out.println(bean.getDescription());
+		}
 	}
 
 
