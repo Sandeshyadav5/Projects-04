@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import in.co.rays.proj4.bean.TimeTableBean;
+import in.co.rays.proj4.bean.TimetableBean;
 import in.co.rays.proj4.model.TimetableModel;
 
 public class TestTimetableModel {
@@ -22,7 +22,7 @@ public class TestTimetableModel {
 		
 	}
 	public static void testAdd() throws  Exception {
-		TimeTableBean bean=new TimeTableBean();
+		TimetableBean bean=new TimetableBean();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		bean.setId(1);
@@ -42,7 +42,7 @@ public class TestTimetableModel {
 		System.out.println("Role added Successfully");
 	}
 	public static void testUpdate() throws  Exception {
-		TimeTableBean bean=new TimeTableBean();
+		TimetableBean bean=new TimetableBean();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		bean.setId(2);
@@ -63,7 +63,7 @@ public class TestTimetableModel {
 		System.out.println("Role updated Successfully");
 	}
 	public static void testDelete() throws  Exception {
-		TimeTableBean bean=new TimeTableBean();
+		TimetableBean bean=new TimetableBean();
 
 		
 		bean.setId(2);
@@ -73,7 +73,7 @@ public class TestTimetableModel {
 		System.out.println("Role deleted Successfully");
 	}
 	public static void testFindByPk() throws  Exception {
-		TimeTableBean bean=model.findByPk(1);
+		TimetableBean bean=model.findByPk(1);
 		System.out.println(bean.getSemester());
 		System.out.println(bean.getExamTime());
 		System.out.println(bean.getExamTime());
@@ -87,12 +87,12 @@ public class TestTimetableModel {
 		
 	}
 	public static void testSearch() throws  Exception {
-		TimeTableBean bean=new TimeTableBean();
+		TimetableBean bean=new TimetableBean();
 		List list =new ArrayList();
 		list=model.search(bean, 0, 0);
 		Iterator it =list.iterator();
 		while(it.hasNext()) {
-			bean=(TimeTableBean)it.next();
+			bean=(TimetableBean)it.next();
 		System.out.println(bean.getSemester());
 		System.out.println(bean.getExamTime());
 		System.out.println(bean.getExamTime());

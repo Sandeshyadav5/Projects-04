@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.security.auth.Subject;
 
+import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.bean.RoleBean;
 import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.bean.SubjectBean;
@@ -16,7 +17,18 @@ import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * Model class for Subject operations.
+ * Provides methods to perform CRUD operations on Subject table.
+ */
 public class SubjectModel {
+
+	/**
+	 * Generates next primary key.
+	 * 
+	 * @return next primary key
+	 * @throws DatabaseException
+	 */
 	public Integer nextpk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
@@ -37,18 +49,36 @@ public class SubjectModel {
 		return pk + 1;
 	}
 
+	/**
+	 * Adds a new Subject.
+	 * 
+	 * @param bean
+	 * @return primary key
+	 * @throws ApplicationException
+	 * @throws DuplicateRecordException
+	 */
 	public long add(SubjectBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+
+		CourseModel courseModel = new CourseModel();
+		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
+		bean.setCourseName(courseBean.getName());
+
 		int pk = 0;
-		SubjectBean existName=findByName(bean.getName());
-		if(existName!=null) {
+
+		SubjectBean existName = findByName(bean.getName());
+		if (existName != null) {
 			throw new DuplicateRecordException("subject name already exist");
 		}
+
 		try {
 			conn = JDBCDataSource.getConnection();
 			pk = nextpk();
 			conn.setAutoCommit(false);
-			PreparedStatement pstmt = conn.prepareStatement("insert into st_subject values( ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+			PreparedStatement pstmt = conn.prepareStatement(
+					"insert into st_subject values( ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
 			pstmt.setInt(1, pk);
 			pstmt.setString(2, bean.getName());
 			pstmt.setLong(3, bean.getCourseId());
@@ -58,9 +88,11 @@ public class SubjectModel {
 			pstmt.setString(7, bean.getModifiedBy());
 			pstmt.setTimestamp(8, bean.getCreatedDatetime());
 			pstmt.setTimestamp(9, bean.getModifiedDatetime());
+
 			pstmt.executeUpdate();
 			conn.commit();
 			pstmt.close();
+
 		} catch (Exception e) {
 			try {
 				conn.rollback();
@@ -75,19 +107,33 @@ public class SubjectModel {
 		return pk;
 	}
 
+	/**
+	 * Updates existing Subject.
+	 * 
+	 * @param bean
+	 * @throws ApplicationException
+	 * @throws DuplicateRecordException
+	 */
 	public void update(SubjectBean bean) throws ApplicationException, DuplicateRecordException {
+
 		Connection conn = null;
-		SubjectBean existName=findByName(bean.getName());
-		if(existName!=null && existName.getId()!=bean.getId()) {
+
+		CourseModel courseModel = new CourseModel();
+		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
+		bean.setCourseName(courseBean.getName());
+
+		SubjectBean existName = findByName(bean.getName());
+		if (existName != null && existName.getId() != bean.getId()) {
 			throw new DuplicateRecordException("subject name already exist");
 		}
 
 		try {
 			conn = JDBCDataSource.getConnection();
-
 			conn.setAutoCommit(false);
+
 			PreparedStatement pstmt = conn.prepareStatement(
 					"update st_subject set name=?,course_id=?,  course_name=?, description=?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id=? ");
+
 			pstmt.setLong(9, bean.getId());
 			pstmt.setString(1, bean.getName());
 			pstmt.setLong(2, bean.getCourseId());
@@ -97,9 +143,11 @@ public class SubjectModel {
 			pstmt.setString(6, bean.getModifiedBy());
 			pstmt.setTimestamp(7, bean.getCreatedDatetime());
 			pstmt.setTimestamp(8, bean.getModifiedDatetime());
+
 			pstmt.executeUpdate();
 			conn.commit();
 			pstmt.close();
+
 		} catch (Exception e) {
 			try {
 				conn.rollback();
@@ -111,21 +159,29 @@ public class SubjectModel {
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
-
 	}
 
+	/**
+	 * Deletes a Subject.
+	 * 
+	 * @param bean
+	 * @throws ApplicationException
+	 */
 	public void delete(SubjectBean bean) throws ApplicationException {
+
 		Connection conn = null;
 
 		try {
 			conn = JDBCDataSource.getConnection();
-
 			conn.setAutoCommit(false);
+
 			PreparedStatement pstmt = conn.prepareStatement("delete from st_subject where id =? ");
 			pstmt.setLong(1, bean.getId());
+
 			pstmt.executeUpdate();
 			conn.commit();
 			pstmt.close();
+
 		} catch (Exception e) {
 			try {
 				conn.rollback();
@@ -139,15 +195,27 @@ public class SubjectModel {
 		}
 	}
 
+	/**
+	 * Finds Subject by Primary Key.
+	 * 
+	 * @param pk
+	 * @return SubjectBean
+	 * @throws ApplicationException
+	 */
 	public SubjectBean findByPk(long pk) throws ApplicationException {
+
 		Connection conn = null;
 		SubjectBean bean = null;
+
 		StringBuffer sql = new StringBuffer("select * from st_subject where id =?");
+
 		try {
 			conn = JDBCDataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setLong(1, pk);
+
 			ResultSet rs = pstmt.executeQuery();
+
 			while (rs.next()) {
 				bean = new SubjectBean();
 				bean.setId(rs.getLong(1));
@@ -156,8 +224,10 @@ public class SubjectModel {
 				bean.setCourseName(rs.getString(4));
 				bean.setDescription(rs.getString(5));
 			}
+
 			rs.close();
 			pstmt.close();
+
 		} catch (Exception e) {
 			throw new ApplicationException("Exception  in getting pk");
 		} finally {
@@ -165,15 +235,28 @@ public class SubjectModel {
 		}
 		return bean;
 	}
+
+	/**
+	 * Finds Subject by Name.
+	 * 
+	 * @param name
+	 * @return SubjectBean
+	 * @throws ApplicationException
+	 */
 	public SubjectBean findByName(String name) throws ApplicationException {
+
 		Connection conn = null;
 		SubjectBean bean = null;
+
 		StringBuffer sql = new StringBuffer("select * from st_subject where name =?");
+
 		try {
 			conn = JDBCDataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setString(1, name);
+
 			ResultSet rs = pstmt.executeQuery();
+
 			while (rs.next()) {
 				bean = new SubjectBean();
 				bean.setId(rs.getLong(1));
@@ -182,8 +265,10 @@ public class SubjectModel {
 				bean.setCourseName(rs.getString(4));
 				bean.setDescription(rs.getString(5));
 			}
+
 			rs.close();
 			pstmt.close();
+
 		} catch (Exception e) {
 			throw new ApplicationException("Exception  in getting Name");
 		} finally {
@@ -191,41 +276,58 @@ public class SubjectModel {
 		}
 		return bean;
 	}
-	public List<RoleBean> list() throws Exception {
+
+	/**
+	 * Returns list of all Subjects.
+	 */
+	public List<SubjectBean> list() throws ApplicationException {
 		return search(null, 0, 0);
 	}
 
-	public List search(SubjectBean bean, int pageSize,int pageNo) throws ApplicationException {
+	/**
+	 * Searches Subject with filters and pagination.
+	 */
+	public List search(SubjectBean bean, int pageNo, int pageSize) throws ApplicationException {
+
 		Connection conn = null;
 
 		StringBuffer sql = new StringBuffer("select * from st_subject where 1=1");
 		List list = new ArrayList();
-		if(bean!=null) {
-			if(bean.getId()>0) {
-				sql.append("and id like "+bean.getId()+"%");
+
+		if (bean != null) {
+
+			if (bean.getId() > 0) {
+				sql.append(" and id = " + bean.getId());
 			}
-			if(bean.getName()!=null && bean.getName().length()>0) {
-				sql.append("and name like "+bean.getId()+"%");
+
+			if (bean.getName() != null && bean.getName().length() > 0) {
+				sql.append(" and name like '" + bean.getName() + "%'");
 			}
-			if(bean.getCourseId()>0) {
-				sql.append("and CourseId like "+bean.getCourseId()+"%");
+
+			if (bean.getCourseId() > 0) {
+				sql.append(" and course_id = " + bean.getCourseId());
 			}
-			if(bean.getCourseName()!=null && bean.getCourseName().length()>0) {
-				sql.append("and CourseName like "+bean.getCourseName()+"%");
+
+			if (bean.getCourseName() != null && bean.getCourseName().length() > 0) {
+				sql.append(" and course_name like '" + bean.getCourseName() + "%'");
 			}
-			if(bean.getDescription()!=null && bean.getDescription().length()>0) {
-				sql.append("and Description like "+bean.getDescription()+"%");
+
+			if (bean.getDescription() != null && bean.getDescription().length() > 0) {
+				sql.append(" and description like '" + bean.getDescription() + "%'");
 			}
 		}
+
 		if (pageSize > 0) {
 			pageNo = (pageNo - 1) * pageSize;
 			sql.append(" limit " + pageNo + ", " + pageSize);
 		}
+
 		try {
 			conn = JDBCDataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 
 			ResultSet rs = pstmt.executeQuery();
+
 			while (rs.next()) {
 				bean = new SubjectBean();
 				bean.setId(rs.getLong(1));
@@ -235,14 +337,16 @@ public class SubjectModel {
 				bean.setDescription(rs.getString(5));
 				list.add(bean);
 			}
+
 			rs.close();
 			pstmt.close();
+
 		} catch (Exception e) {
 			throw new ApplicationException("Exception  in getting pk");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
+
 		return list;
 	}
-
 }

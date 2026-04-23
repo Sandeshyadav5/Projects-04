@@ -26,7 +26,7 @@ public class TestMarksheetModel {
 	}
 	public static void testNextPk() throws DatabaseException {
 		MarksheetModel r=new MarksheetModel();
-		long i = r.nextpk();
+		long i = r.nextPk();
 		System.out.println(i);
 	}
 	public static void testAdd() throws Exception {
@@ -81,18 +81,18 @@ public class TestMarksheetModel {
 		
 		
 	}
-	public static void testFindByRoll() throws ApplicationException {
-		MarksheetBean bean=model.findByRoll("");
-		
-		System.out.println(bean.getRollNo());
-		System.out.println(bean.getName());
-		System.out.println(bean.getStudentId());
-		System.out.println(bean.getPhysics());
-		System.out.println(bean.getChemistry());
-		System.out.println(bean.getMaths());
-		
-		
-	}
+//	public static void testFindByRoll() throws ApplicationException {
+//		MarksheetBean bean=model.findByPk("");
+//		
+//		System.out.println(bean.getRollNo());
+//		System.out.println(bean.getName());
+//		System.out.println(bean.getStudentId());
+//		System.out.println(bean.getPhysics());
+//		System.out.println(bean.getChemistry());
+//		System.out.println(bean.getMaths());
+//		
+//		
+//	}
 	public static void testSearch() throws ApplicationException {
 		MarksheetBean bean=new MarksheetBean();
 		List list=new ArrayList();

@@ -6,13 +6,27 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.co.rays.proj4.bean.CollegeBean;
+import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.bean.FacultyBean;
+import in.co.rays.proj4.bean.SubjectBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
+/**
+ * Model class for Faculty.
+ * Handles database operations like add, update, delete, search, etc.
+ */
 public class FacultyModel {
+
+	/**
+	 * Returns next primary key from st_faculty table.
+	 * 
+	 * @return next primary key
+	 * @throws DatabaseException if database error occurs
+	 */
 	public Integer nextPk() throws DatabaseException {
 		Connection conn = null;
 		int pk = 0;
@@ -32,9 +46,37 @@ public class FacultyModel {
 		return pk + 1;
 	}
 
+	/**
+	 * Adds a new Faculty record.
+	 * 
+	 * @param bean FacultyBean object
+	 * @return generated primary key
+	 * @throws ApplicationException if application error occurs
+	 * @throws DuplicateRecordException if email already exists
+	 */
 	public long add(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
 		int pk = 0;
+		
+		CollegeModel collegeModel = new CollegeModel();
+		CollegeBean collegeBean = collegeModel.findByPk(bean.getCollegeId());
+		bean.setCollegeName(collegeBean.getName());
+
+		CourseModel courseModel = new CourseModel();
+		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
+		bean.setCoursename(courseBean.getName());
+
+		SubjectModel subjectModel = new SubjectModel();
+		SubjectBean subjectBean = subjectModel.findByPk(bean.getSubjectId());
+		bean.setSubjectName(subjectBean.getName());
+
+		FacultyBean existbean = findByEmail(bean.getEmail());
+
+		if (existbean != null) {
+			throw new DuplicateRecordException("Email Id already exists");
+		}
+
+		
 		FacultyBean existEmail = findByEmail(bean.getEmail());
 		if (existEmail != null) {
 			throw new DuplicateRecordException("Faculty email already exist");
@@ -78,8 +120,28 @@ public class FacultyModel {
 		return pk;
 	}
 
+	/**
+	 * Updates existing Faculty record.
+	 * 
+	 * @param bean FacultyBean object
+	 * @throws ApplicationException if error occurs
+	 * @throws DuplicateRecordException if duplicate email found
+	 */
 	public void update(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 		Connection conn = null;
+
+		CollegeModel collegeModel = new CollegeModel();
+		CollegeBean collegeBean = collegeModel.findByPk(bean.getCollegeId());
+		bean.setCollegeName(collegeBean.getName());
+
+		CourseModel courseModel = new CourseModel();
+		CourseBean courseBean = courseModel.findByPk(bean.getCourseId());
+		bean.setCoursename(courseBean.getName());
+
+		SubjectModel subjectModel = new SubjectModel();
+		SubjectBean subjectBean = subjectModel.findByPk(bean.getSubjectId());
+		bean.setSubjectName(subjectBean.getName());
+
 		FacultyBean existEmail = findByEmail(bean.getEmail());
 		if (existEmail != null && existEmail.getId() != bean.getId()) {
 			throw new DuplicateRecordException("Faculty email already exist");
@@ -124,6 +186,12 @@ public class FacultyModel {
 
 	}
 
+	/**
+	 * Deletes Faculty record.
+	 * 
+	 * @param bean FacultyBean containing id
+	 * @throws ApplicationException if error occurs
+	 */
 	public void delete(FacultyBean bean) throws ApplicationException {
 		Connection conn = null;
 		try {
@@ -147,6 +215,13 @@ public class FacultyModel {
 
 	}
 
+	/**
+	 * Finds Faculty by primary key.
+	 * 
+	 * @param pk primary key
+	 * @return FacultyBean
+	 * @throws ApplicationException if error occurs
+	 */
 	public FacultyBean findByPk(long pk) throws ApplicationException {
 		Connection conn = null;
 		FacultyBean bean = null;
@@ -182,6 +257,13 @@ public class FacultyModel {
 		return bean;
 	}
 
+	/**
+	 * Finds Faculty by email.
+	 * 
+	 * @param email faculty email
+	 * @return FacultyBean
+	 * @throws ApplicationException if error occurs
+	 */
 	public FacultyBean findByEmail(String email) throws ApplicationException {
 		Connection conn = null;
 		FacultyBean bean = null;
@@ -217,54 +299,79 @@ public class FacultyModel {
 		return bean;
 	}
 
+	/**
+	 * Returns list of all Faculty records.
+	 */
 	public List<FacultyBean> list() throws Exception {
 		return search(null, 0, 0);
 	}
 
-	public List search(FacultyBean bean, int pageSize, int pageNo) throws ApplicationException {
+	/**
+	 * Searches Faculty records with filters and pagination.
+	 * 
+	 * @param bean filter criteria
+	 * @param pageNo page number
+	 * @param pageSize page size
+	 * @return list of FacultyBean
+	 * @throws ApplicationException if error occurs
+	 */
+	public List search(FacultyBean bean,int pageNo, int pageSize) throws ApplicationException {
 		Connection conn = null;
 		List list = new ArrayList();
 		StringBuffer sql = new StringBuffer("select * from  st_faculty where 1=1");
 		if (bean != null) {
-			if (bean.getId() > 0) {
-				sql.append("and id like this" + bean.getId() + "%");
-			}
-			if (bean.getFirstname() != null && bean.getFirstname().length() > 0) {
-				sql.append("and first_name like this" + bean.getFirstname() + "%");
-			}
-			if (bean.getLastName() != null && bean.getLastName().length() > 0) {
-				sql.append("and last_name like this" + bean.getLastName() + "%");
-			}
-			if (bean.getDob() != null && bean.getDob().getDate() > 0) {
-				sql.append("and DoB like this" + bean.getDob() + "%");
-			}
-			if (bean.getGender() != null && bean.getGender().length() > 0) {
-				sql.append("and Gender like this" + bean.getGender() + "%");
-			}
-			if (bean.getMobileNo() != null && bean.getMobileNo().length() > 0) {
-				sql.append("and MobileNo like this" + bean.getMobileNo() + "%");
-			}
-			if (bean.getEmail() != null && bean.getEmail().length() > 0) {
-				sql.append("and Email like this" + bean.getEmail() + "%");
-			}
-			if (bean.getCollegeId() > 0) {
-				sql.append("and CollegeId like this" + bean.getCollegeId() + "%");
-			}
-			if (bean.getCollegeName() != null && bean.getCollegeName().length() > 0) {
-				sql.append("and CollegeName like this" + bean.getCollegeName() + "%");
-			}
-			if (bean.getCourseId() > 0) {
-				sql.append("and CourseId like " + bean.getCourseId() + "%");
-			}
-			if (bean.getCoursename() != null && bean.getCoursename().length() > 0) {
-				sql.append("and CourseName like " + bean.getCoursename() + "%");
-			}
-			if (bean.getSubjectId() > 0) {
-				sql.append("and SubjectId like this" + bean.getSubjectId() + "%");
-			}
-			if (bean.getSubjectName() != null && bean.getSubjectName().length() > 0) {
-				sql.append("and subjectname like this" + bean.getSubjectName() + "%");
-			}
+
+		    if (bean.getId() > 0) {
+		        sql.append(" AND id = " + bean.getId());
+		    }
+
+		    if (bean.getFirstname() != null && bean.getFirstname().length() > 0) {
+		        sql.append(" AND first_name LIKE '" + bean.getFirstname() + "%'");
+		    }
+
+		    if (bean.getLastName() != null && bean.getLastName().length() > 0) {
+		        sql.append(" AND last_name LIKE '" + bean.getLastName() + "%'");
+		    }
+
+		    if (bean.getDob() != null) {
+		        sql.append(" AND dob = '" + new java.sql.Date(bean.getDob().getTime()) + "'");
+		    }
+
+		    if (bean.getGender() != null && bean.getGender().length() > 0) {
+		        sql.append(" AND gender LIKE '" + bean.getGender() + "%'");
+		    }
+
+		    if (bean.getMobileNo() != null && bean.getMobileNo().length() > 0) {
+		        sql.append(" AND mobileNo LIKE '" + bean.getMobileNo() + "%'");
+		    }
+
+		    if (bean.getEmail() != null && bean.getEmail().length() > 0) {
+		        sql.append(" AND email LIKE '" + bean.getEmail() + "%'");
+		    }
+
+		    if (bean.getCollegeId() > 0) {
+		        sql.append(" AND collegeId = " + bean.getCollegeId());
+		    }
+
+		    if (bean.getCollegeName() != null && bean.getCollegeName().length() > 0) {
+		        sql.append(" AND collegeName LIKE '" + bean.getCollegeName() + "%'");
+		    }
+
+		    if (bean.getCourseId() > 0) {
+		        sql.append(" AND courseId = " + bean.getCourseId());
+		    }
+
+		    if (bean.getCoursename() != null && bean.getCoursename().length() > 0) {
+		        sql.append(" AND courseName LIKE '" + bean.getCoursename() + "%'");
+		    }
+
+		    if (bean.getSubjectId() > 0) {
+		        sql.append(" AND subjectId = " + bean.getSubjectId());
+		    }
+
+		    if (bean.getSubjectName() != null && bean.getSubjectName().length() > 0) {
+		        sql.append(" AND subjectName LIKE '" + bean.getSubjectName() + "%'");
+		    }
 		}
 		if (pageSize > 0) {
 			pageNo = (pageNo - 1) * pageSize;

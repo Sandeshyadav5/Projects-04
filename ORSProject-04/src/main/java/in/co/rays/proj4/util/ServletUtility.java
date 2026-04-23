@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.controller.BaseCtl;
+import in.co.rays.proj4.controller.ORSView;
 
 public class ServletUtility {
 
@@ -113,6 +114,6 @@ public class ServletUtility {
 	public static void handleException(Exception e, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		request.setAttribute("exception", e);
-//		response.sendRedirect(ORSView.ERROR_CTL);
+     	response.sendRedirect(ORSView.ERROR_CTL);
 	}
 }

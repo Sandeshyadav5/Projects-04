@@ -17,9 +17,9 @@ public class TestUserModel {
 //		testNextPk();
 //		testAdd();
 //		testDelete();
-		testUpdate();
+//		testUpdate();
 //		testfindByPk();
-//		testSearch(); 
+		testSearch(); 
 //		testfindByLogin();
 		
 	}
