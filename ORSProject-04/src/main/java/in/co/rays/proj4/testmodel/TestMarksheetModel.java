@@ -34,7 +34,7 @@ public class TestMarksheetModel {
 		
 		bean.setRollNo("2");
 		bean.setStudentId(1);
-		bean.setName("sandesh");
+		bean.setName(" Durgesh Lohiya");
 		bean.setPhysics(34);
 		bean.setChemistry(54);
 		bean.setMaths(94);
@@ -50,7 +50,7 @@ public class TestMarksheetModel {
 		bean.setId(5);
 		bean.setRollNo("24534");
 		bean.setStudentId(1);
-		bean.setName("sandesh");
+		bean.setName(" Durgesh Lohiya");
 		bean.setPhysics(34);
 		bean.setChemistry(54);
 		bean.setMaths(94);

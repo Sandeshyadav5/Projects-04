@@ -18,7 +18,7 @@ public class TestMail {
 	private static void testUserRegistrationMail() throws ApplicationException {
 
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("login", "ahirsandesh5@gmail.com");
+		map.put("login", "ahir Durgesh Lohiya5@gmail.com");
 		map.put("password", "sandy123");
 
 		String message = EmailBuilder.getUserRegistrationMessage(map);
@@ -27,7 +27,7 @@ public class TestMail {
 
 		EmailMessage msg = new EmailMessage();
 
-		msg.setTo("ahirsandesh5@gmail.com");
+		msg.setTo("ahir Durgesh Lohiya5@gmail.com");
 		msg.setSubject("Registration is successful for ORSProject-04");
 		msg.setMessage(message);
 		msg.setMessageType(EmailMessage.HTML_MSG);

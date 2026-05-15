@@ -11,7 +11,7 @@ package in.co.rays.proj4.bean;
  * 
  * It also provides key-value methods for dropdown display.
  * 
- * @author Sandesh
+ * @author  Durgesh Lohiya
  */
 public class CourseBean extends BaseBean {
 

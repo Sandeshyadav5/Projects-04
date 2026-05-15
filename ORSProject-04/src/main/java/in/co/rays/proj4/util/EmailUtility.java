@@ -10,15 +10,10 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-
 
 import in.co.rays.proj4.exception.ApplicationException;
 
 public class EmailUtility {
-	
 
 	static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.system");
 
@@ -42,11 +37,9 @@ public class EmailUtility {
 	}
 
 	public static void sendMail(EmailMessage emailMessageDTO) throws ApplicationException {
-		
 		try {
 			// Setup mail session
-			Session session = Session.getDefaultInstance(props, new Authenticator() 
-			{
+			Session session = Session.getDefaultInstance(props, new Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(emailFromAddress, emailPassword);
 				}
@@ -55,7 +48,7 @@ public class EmailUtility {
 			// Create and setup the email message
 			Message msg = new MimeMessage(session);
 			msg.setFrom(new InternetAddress(emailFromAddress));
-		msg.setRecipients(Message.RecipientType.TO, getInternetAddresses(emailMessageDTO.getTo()));
+			msg.setRecipients(Message.RecipientType.TO, getInternetAddresses(emailMessageDTO.getTo()));
 			msg.setSubject(emailMessageDTO.getSubject());
 
 			// Set content type based on message type

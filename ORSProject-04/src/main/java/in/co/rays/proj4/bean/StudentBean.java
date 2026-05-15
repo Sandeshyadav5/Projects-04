@@ -6,7 +6,7 @@ import java.util.Date;
  * StudentBean class represents the Student entity.
  * It contains personal details and college information of a student.
  * 
- * @author 
+ * @author :  Durgesh Lohiya
  */
 public class StudentBean extends BaseBean {
 

@@ -254,7 +254,7 @@ public class UserCtl extends BaseCtl {
 				ServletUtility.setSuccessMessage("User updated successfully", request);
 			} catch (DuplicateRecordException e) {
 				ServletUtility.setBean(bean, request);
-				ServletUtility.setErrorMessage("Login Id already exists", request);
+				ServletUtility.setErrorMessage("Login Id already exist	s", request);
 			} catch (ApplicationException e) {
 				e.printStackTrace();
 				ServletUtility.handleException(e, request, response);

@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  * 
  * All other beans should extend this class to inherit these properties.
  * 
- * @author Sandesh
+ * @author  Durgesh Lohiya
  */
 public abstract class BaseBean implements DropdownListBean {
 

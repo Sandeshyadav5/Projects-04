@@ -26,13 +26,13 @@
 		align="right" width="100" height="40" border="0">
 
 	<%
-		UserBean user = (UserBean) session.getAttribute("user");
-		boolean loggedIn = user != null;
+	UserBean user = (UserBean) session.getAttribute("user");
+	boolean loggedIn = user != null;
 	%>
 
 	<!-- Logged In View -->
 	<%
-		if (loggedIn) {
+	if (loggedIn) {
 	%>
 
 	<h3>
@@ -49,9 +49,9 @@
 
 	<!-- Admin Only -->
 	<%
-		if (user.getRoleId() == RoleBean.ADMIN) {
+	if (user.getRoleId() == RoleBean.ADMIN) {
 	%>
-	
+
 	<a href="<%=ORSView.USER_CTL%>"><b>Add User</b></a> |
 	<a href="<%=ORSView.USER_LIST_CTL%>"><b>User List</b></a> |
 	<a href="<%=ORSView.ROLE_CTL%>"><b>Add Role</b></a> |
@@ -63,7 +63,7 @@
 
 	<a href="<%=ORSView.MARKSHEET_CTL%>"><b>Add Marksheet</b></a> |
 	<a href="<%=ORSView.MARKSHEET_LIST_CTL%>"><b>Marksheet List</b></a> |
-	
+
 	<a href="<%=ORSView.TIMETABLE_CTL%>"><b>Add Timetable</b></a> |
 	<a href="<%=ORSView.TIMETABLE_LIST_CTL%>"><b>Timetable List</b></a> |
 
@@ -78,16 +78,51 @@
 
 	<a href="<%=ORSView.EMI_CTL%>"><b>Add Emi</b></a> |
 	<a href="<%=ORSView.EMI_LIST_CTL%>"><b>Emi List</b></a> |
-	
+
 	<a href="<%=ORSView.PASSWORD_CTL%>"><b>Add Password</b></a> |
 	<a href="<%=ORSView.PASSWORD_LIST_CTL%>"><b>Password List</b></a> |
+
+	<a href="<%=ORSView.WARRANTY_CTL%>"><b>Add Warranty</b></a> |
+	<a href="<%=ORSView.WARRANTY_LIST_CTL%>"><b>Warranty List</b></a> |
+
+	<a href="<%=ORSView.TOPIC_CTL%>"><b>Add Topic</b></a> |
+	<a href="<%=ORSView.TOPIC_LIST_CTL%>"><b>Topic List</b></a> |
+	
+	<a href="<%=ORSView.BATCH_CTL%>"><b>Add Batch</b></a> |
+	<a href="<%=ORSView.BATCH_LIST_CTL%>"><b>Batch List</b></a> |
+	
+	<a href="<%=ORSView.JOB_CTL%>"><b>Add Job</b></a> |
+	<a href="<%=ORSView.JOB_LIST_CTL%>"><b>Job List</b></a> |
+	
+	
+	<a href="<%=ORSView.SOURCE_CTL%>"><b>Add Source</b></a> |
+	<a href="<%=ORSView.SOURCE_LIST_CTL%>"><b>Source List</b></a> |
+	
+	<a href="<%=ORSView.SESSION_CTL%>"><b>Add Session</b></a> |
+	<a href="<%=ORSView.SESSION_LIST_CTL%>"><b>Session List</b></a> |
+	
+	<a href="<%=ORSView.COMMAND_CTL%>"><b>Add Command</b></a> |
+	<a href="<%=ORSView.COMMAND_LIST_CTL%>"><b>Command List</b></a> |
+	
+	<a href="<%=ORSView.GENDER_CTL%>"><b>Add Gender</b></a> |
+	<a href="<%=ORSView.GENDER_LIST_CTL%>"><b>Gender List</b></a> |
+	
+	<a href="<%=ORSView.DISASTER_CTL%>"><b>Add Disaster</b></a> |
+	<a href="<%=ORSView.DISASTER_LIST_CTL%>"><b>Disaster List</b></a> |
+	
+	<a href="<%=ORSView.ENERGY_CTL%>"><b>Add Energy</b></a> |
+	<a href="<%=ORSView.ENERGY_LIST_CTL%>"><b>Energy List</b></a> |
+	
+	<a href="<%=ORSView.EMOJI_CTL%>"><b>Add Emoji</b></a> |
+	<a href="<%=ORSView.EMOJI_LIST_CTL%>"><b>Emoji List</b></a> |
+	
 
 
 
 
 	<!-- Faculty + Admin Menus -->
 	<%
-		if (user.getRoleId() == RoleBean.FACULTY) {
+	if (user.getRoleId() == RoleBean.FACULTY) {
 	%>
 
 	<a href="<%=ORSView.STUDENT_CTL%>"><b>Add Student</b></a> |
@@ -95,7 +130,7 @@
 
 	<a href="<%=ORSView.MARKSHEET_CTL%>"><b>Add Marksheet</b></a> |
 	<a href="<%=ORSView.MARKSHEET_LIST_CTL%>"><b>Marksheet List</b></a> |
-	
+
 	<a href="<%=ORSView.TIMETABLE_CTL%>"><b>Add Timetable</b></a> |
 	<a href="<%=ORSView.TIMETABLE_LIST_CTL%>"><b>Timetable List</b></a> |
 
@@ -110,15 +145,49 @@
 
 	<a href="<%=ORSView.EMI_CTL%>"><b>Add Emi</b></a> |
 	<a href="<%=ORSView.EMI_LIST_CTL%>"><b>Emi List</b></a> |
-	
+
 	<a href="<%=ORSView.PASSWORD_CTL%>"><b>Add Password</b></a> |
 	<a href="<%=ORSView.PASSWORD_LIST_CTL%>"><b>Password List</b></a> |
 
+	<a href="<%=ORSView.WARRANTY_CTL%>"><b>Add Warranty</b></a> |
+	<a href="<%=ORSView.WARRANTY_LIST_CTL%>"><b>Warranty List</b></a> |
 
-
+	<a href="<%=ORSView.TOPIC_CTL%>"><b>Add Topic</b></a> |
+	<a href="<%=ORSView.TOPIC_LIST_CTL%>"><b>Topic List</b></a> |
 	
+	<a href="<%=ORSView.BATCH_CTL%>"><b>Add Batch</b></a> |
+	<a href="<%=ORSView.BATCH_LIST_CTL%>"><b>Batch List</b></a> |
+	
+	<a href="<%=ORSView.JOB_CTL%>"><b>Add Job</b></a> |
+	<a href="<%=ORSView.JOB_LIST_CTL%>"><b>Job List</b></a> |
+	
+	<a href="<%=ORSView.SOURCE_CTL%>"><b>Add Source</b></a> |
+	<a href="<%=ORSView.SOURCE_LIST_CTL%>"><b>Source List</b></a> |
+	
+	<a href="<%=ORSView.SESSION_CTL%>"><b>Add Session</b></a> |
+	<a href="<%=ORSView.SESSION_LIST_CTL%>"><b>Session List</b></a> |
+	
+	<a href="<%=ORSView.COMMAND_CTL%>"><b>Add Command</b></a> |
+	<a href="<%=ORSView.COMMAND_LIST_CTL%>"><b>Command List</b></a> |
+	
+	<a href="<%=ORSView.GENDER_CTL%>"><b>Add Gender</b></a> |
+	<a href="<%=ORSView.GENDER_LIST_CTL%>"><b>Gender List</b></a> |
+	
+	<a href="<%=ORSView.DISASTER_CTL%>"><b>Add Disaster</b></a> |
+	<a href="<%=ORSView.DISASTER_LIST_CTL%>"><b>Disaster List</b></a> |
+	
+	<a href="<%=ORSView.ENERGY_CTL%>"><b>Add Energy</b></a> |
+	<a href="<%=ORSView.ENERGY_LIST_CTL%>"><b>Energy List</b></a> |
+	
+	<a href="<%=ORSView.EMOJI_CTL%>"><b>Add Emoji</b></a> |
+	<a href="<%=ORSView.EMOJI_LIST_CTL%>"><b>Emoji List</b></a> |
+	
+
+
+
+
 	<%
-		}
+	}
 	%>
 
 
@@ -126,13 +195,13 @@
 
 	<!-- Logout -->
 	<a href="<%=ORSView.LOGIN_CTL%>?operation=<%=LoginCtl.OP_LOG_OUT%>"><b>Logout</b></a>
-	
+
 	<%
-		}
+	}
 	%>
 
 	<%
-		} else {
+	} else {
 	%>
 
 	<!-- Guest View -->
@@ -141,7 +210,7 @@
 	<a href="LoginCtl"><b>Login</b></a>
 
 	<%
-		}
+	}
 	%>
 
 	<hr>

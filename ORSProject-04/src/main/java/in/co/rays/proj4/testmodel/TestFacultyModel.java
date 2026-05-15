@@ -26,7 +26,7 @@ public class TestFacultyModel {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
-		bean.setFirstname("sandesh");
+		bean.setFirstname(" Durgesh Lohiya");
 		bean.setLastName("yafaddfd");
 		bean.setDob(sdf.parse("2001-09-05"));
 		bean.setGender("Male");

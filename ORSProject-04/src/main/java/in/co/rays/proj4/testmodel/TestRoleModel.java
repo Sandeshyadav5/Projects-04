@@ -45,7 +45,7 @@ public class TestRoleModel {
 	private static void testUpdate() throws Exception {
 		RoleBean bean = new RoleBean();
 		bean.setId(1);
-		bean.setName("sandesh");
+		bean.setName(" Durgesh Lohiya");
 		bean.setDescription("ahir");
 		bean.setCreatedBy("admin");
 		bean.setModifiedBy("admin");

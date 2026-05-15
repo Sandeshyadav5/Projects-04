@@ -84,7 +84,7 @@ public class TestUserModel {
 		System.out.println(bean.getGender());
 	}
 	private static void testfindByLogin() throws Exception{
-		UserBean bean=model.findByLogin("sandesh@gmail.com");
+		UserBean bean=model.findByLogin(" Durgesh Lohiya@gmail.com");
 		
 		System.out.println(bean.getFirstName());
 		System.out.println(bean.getLastName());

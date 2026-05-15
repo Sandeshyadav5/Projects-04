@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mchange.util.DuplicateElementException;
 
 import in.co.rays.proj4.bean.EmiBean;
 import in.co.rays.proj4.exception.ApplicationException;

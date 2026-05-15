@@ -11,7 +11,7 @@
 	<div align="center">
 	<h3>Some thing is wrong</h3>
 	<hr>
-	<img src="img/error404.webp">
+	<img src="https://media.geeksforgeeks.org/wp-content/uploads/20230802153215/Error-404.png">
 	<hr>
 	<a href=<%=ORSView.WELCOME_CTL%>>Go to home Page</a>
 	</div>

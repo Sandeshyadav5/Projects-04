@@ -40,7 +40,7 @@
 			<input type="hidden" name="modifiedDatetime"
 				value="<%=DataUtility.getTimestamp(bean.getModifiedDatetime())%>">
 			<%
-				String uri = (String) request.getAttribute("uri");
+			String uri = (String) request.getAttribute("uri");
 			%>
 			<table>
 				<tr>
@@ -74,7 +74,8 @@
 				</tr>
 				<tr>
 					<th></th>
-					
+					<td><a href="<%=ORSView.FORGET_PASSWORD_CTL%>"><b>Forget
+								my password?</b></a>&nbsp;</td>
 				</tr>
 			</table>
 		</div>

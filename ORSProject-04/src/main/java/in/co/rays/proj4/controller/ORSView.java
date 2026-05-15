@@ -95,6 +95,76 @@ public interface ORSView {
 	
 	public String PASSWORD_LIST_VIEW= PAGE_FOLDER + "/PasswordListView.jsp";
 	public String PASSWORD_LIST_CTL = APP_CONTEXT + "/ctl/PasswordListCtl";
+	
+	public String WARRANTY_VIEW = PAGE_FOLDER + "/WarrantyView.jsp";
+	public String WARRANTY_CTL = APP_CONTEXT + "/ctl/WarrantyCtl";
+	
+	public String WARRANTY_LIST_VIEW= PAGE_FOLDER + "/WarrantyListView.jsp";
+	public String WARRANTY_LIST_CTL = APP_CONTEXT + "/ctl/WarrantyListCtl";
+	
+	public String TOPIC_VIEW = PAGE_FOLDER + "/TopicView.jsp";
+	public String TOPIC_CTL = APP_CONTEXT + "/ctl/TopicCtl";
+
+	public String TOPIC_LIST_CTL = APP_CONTEXT + "/ctl/TopicListCtl";
+	public String TOPIC_LIST_VIEW = PAGE_FOLDER + "/TopicListView.jsp";
+	
+	public String BATCH_VIEW = PAGE_FOLDER + "/BatchView.jsp";
+	public String BATCH_CTL = APP_CONTEXT + "/ctl/BatchCtl";
+
+	public String BATCH_LIST_CTL = APP_CONTEXT + "/ctl/BatchListCtl";
+	public String BATCH_LIST_VIEW = PAGE_FOLDER + "/BatchListView.jsp";
+	
+	public String JOB_VIEW = PAGE_FOLDER + "/JobView.jsp";
+	public String JOB_CTL = APP_CONTEXT + "/ctl/JobCtl";
+
+	public String JOB_LIST_CTL = APP_CONTEXT + "/ctl/JobListCtl";
+	public String JOB_LIST_VIEW = PAGE_FOLDER + "/JobListView.jsp";
+
+	public String SOURCE_VIEW = PAGE_FOLDER + "/SourceView.jsp";
+	public String SOURCE_CTL = APP_CONTEXT + "/ctl/SourceCtl";
+
+	public String SOURCE_LIST_CTL = APP_CONTEXT + "/ctl/SourceListCtl";
+	public String SOURCE_LIST_VIEW = PAGE_FOLDER + "/SourceListView.jsp";
+	
+	public String SESSION_VIEW = PAGE_FOLDER + "/SessionView.jsp";
+	public String SESSION_CTL = APP_CONTEXT + "/ctl/SessionCtl";
+
+	public String SESSION_LIST_CTL = APP_CONTEXT + "/ctl/SessionListCtl";
+	public String SESSION_LIST_VIEW = PAGE_FOLDER + "/SessionListView.jsp";
+	
+	public String COMMAND_VIEW = PAGE_FOLDER + "/CommandView.jsp";
+	public String COMMAND_CTL = APP_CONTEXT + "/ctl/CommandCtl";
+
+	public String COMMAND_LIST_CTL = APP_CONTEXT + "/ctl/CommandListCtl";
+	public String COMMAND_LIST_VIEW = PAGE_FOLDER + "/CommandListView.jsp";
+	
+	public String GENDER_VIEW = PAGE_FOLDER + "/GenderView.jsp";
+	public String GENDER_CTL = APP_CONTEXT + "/ctl/GenderCtl";
+
+	public String GENDER_LIST_CTL = APP_CONTEXT + "/ctl/GenderListCtl";
+	public String GENDER_LIST_VIEW = PAGE_FOLDER + "/GenderListView.jsp";
+	
+	public String DISASTER_VIEW = PAGE_FOLDER + "/DisasterView.jsp";
+	public String DISASTER_CTL = APP_CONTEXT + "/ctl/DisasterCtl";
+
+	public String DISASTER_LIST_CTL = APP_CONTEXT + "/ctl/DisasterListCtl";
+	public String DISASTER_LIST_VIEW = PAGE_FOLDER + "/DisasterListView.jsp";
+	
+	public String ENERGY_VIEW = PAGE_FOLDER + "/EnergyView.jsp";
+	public String ENERGY_CTL = APP_CONTEXT + "/ctl/EnergyCtl";
+
+	public String ENERGY_LIST_CTL = APP_CONTEXT + "/ctl/EnergyListCtl";
+	public String ENERGY_LIST_VIEW = PAGE_FOLDER + "/EnergyListView.jsp";
+	
+	
+	public String EMOJI_VIEW = PAGE_FOLDER + "/EmojiView.jsp";
+	public String EMOJI_CTL = APP_CONTEXT + "/ctl/EmojiCtl";
+
+	public String EMOJI_LIST_CTL = APP_CONTEXT + "/ctl/EmojiListCtl";
+	public String EMOJI_LIST_VIEW = PAGE_FOLDER + "/EmojiListView.jsp";
+	
+	
+
 
 	public String ERROR_VIEW = PAGE_FOLDER + "/ErrorView.jsp";
 	public String ERROR_CTL = APP_CONTEXT + "/ctl/ErrorCtl";

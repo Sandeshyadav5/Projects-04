@@ -1,3 +1,4 @@
+
 package in.co.rays.proj4.model;
 
 import java.sql.Connection;
@@ -18,8 +19,8 @@ import in.co.rays.proj4.util.EmailUtility;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 /**
- * Model class for User operations.
- * Provides CRUD operations and authentication functionality.
+ * Model class for User operations. Provides CRUD operations and authentication
+ * functionality.
  */
 public class UserModel {
 
@@ -311,7 +312,7 @@ public class UserModel {
 				sql.append(" and password like '" + bean.getPassword() + "%'");
 			}
 			if (bean.getDob() != null && bean.getDob().getDate() > 0) {
-				sql.append(" and dob = " + bean.getDob());
+				sql.append(" and dob = " + new java.sql.Date(bean.getDob().getTime()) );
 			}
 			if (bean.getMobileNo() != null && bean.getMobileNo().length() > 0) {
 				sql.append(" and mobile_no = " + bean.getMobileNo());
@@ -492,6 +493,7 @@ public class UserModel {
 			EmailUtility.sendMail(msg);
 			flag = true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new ApplicationException("Please check your internet connection..!!");
 		}
 		return flag;
@@ -516,6 +518,7 @@ public class UserModel {
 		msg.setSubject("Registration is successful for ORSProject-04");
 		msg.setMessage(message);
 		msg.setMessageType(EmailMessage.HTML_MSG);
+		EmailUtility.sendMail(msg);
 
 		return pk;
 	}

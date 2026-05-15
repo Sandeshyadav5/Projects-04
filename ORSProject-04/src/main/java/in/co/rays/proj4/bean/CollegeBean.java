@@ -11,7 +11,7 @@ package in.co.rays.proj4.bean;
  * 
  * It also implements methods required for dropdown display.
  * 
- * @author Sandesh
+ * @author  Durgesh Lohiya
  */
 public class CollegeBean extends BaseBean {
 

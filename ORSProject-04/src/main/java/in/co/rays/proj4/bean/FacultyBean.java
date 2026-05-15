@@ -14,7 +14,7 @@ import java.util.Date;
  * 
  * It also provides key-value methods for dropdown display.
  * 
- * @author Sandesh
+ * @author  Durgesh Lohiya
  */
 public class FacultyBean extends BaseBean {
 

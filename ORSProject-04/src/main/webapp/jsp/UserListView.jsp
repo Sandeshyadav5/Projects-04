@@ -39,17 +39,17 @@
 
 		<form action="<%=ORSView.USER_LIST_CTL%>" method="post">
 			<%
-				int pageNo = ServletUtility.getPageNo(request);
-				int pageSize = ServletUtility.getPageSize(request);
-				int index = ((pageNo - 1) * pageSize) + 1;
-				int nextListSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
+			int pageNo = ServletUtility.getPageNo(request);
+			int pageSize = ServletUtility.getPageSize(request);
+			int index = ((pageNo - 1) * pageSize) + 1;
+			int nextListSize = DataUtility.getInt(request.getAttribute("nextListSize").toString());
 
-				List<RoleBean> roleList = (List<RoleBean>) request.getAttribute("roleList");
-				HashMap<String, String> map = (HashMap<String, String>) request.getAttribute("map");
-				List<UserBean> list = (List<UserBean>) ServletUtility.getList(request);
-				Iterator<UserBean> it = list.iterator();
+			List<RoleBean> roleList = (List<RoleBean>) request.getAttribute("roleList");
+			HashMap<String, String> map = (HashMap<String, String>) request.getAttribute("map");
+			List<UserBean> list = (List<UserBean>) ServletUtility.getList(request);
+			Iterator<UserBean> it = list.iterator();
 
-				if (list.size() != 0) {
+			if (list.size() != 0) {
 			%>
 
 			<input type="hidden" name="pageNo" value="<%=pageNo%>"> <input
@@ -61,18 +61,19 @@
 						type="text" name="firstName" placeholder="Enter First Name"
 						value="<%=ServletUtility.getParameter("firstName", request)%>">&emsp;
 
-						
-						<td align="center"><label><b>DOB :</b></label> <input
-						type="text" name="dob" placeholder="dob"
-						value="<%=ServletUtility.getParameter("dob", request)%>">&emsp;
+
 					
+					<%-- <td align="center"><label><b>DOB :</b></label> <input
+						type="text" name="dob" placeholder="dob"
+						value="<%=ServletUtility.getParameter("dob", request)%>">&emsp; --%>
+
 
 						<label><b>Role : </b></label> <%=HTMLUtility.getList("roleId", String.valueOf(bean.getRoleId()), roleList)%>&emsp;
-						
-						
-						 <label><b>Gender : </b></label> <%=HTMLUtility.getList("gender", String.valueOf(bean.getGender()), map)%>&emsp; 
 
-						<input type="submit" name="operation"
+
+						<label><b>Gender : </b></label> <%=HTMLUtility.getList("gender", String.valueOf(bean.getGender()), map)%>&emsp;
+
+						<input type="submit" name="operation",
 						value="<%=UserListCtl.OP_SEARCH%>"> &nbsp; <input
 						type="submit" name="operation" value="<%=UserListCtl.OP_RESET%>">
 					</td>
@@ -95,13 +96,13 @@
 				</tr>
 
 				<%
-					while (it.hasNext()) {
-							bean = (UserBean) it.next();
-							RoleModel model = new RoleModel();
-							RoleBean roleBean = model.findByPk(bean.getRoleId());
+				while (it.hasNext()) {
+					bean = (UserBean) it.next();
+					RoleModel model = new RoleModel();
+					RoleBean roleBean = model.findByPk(bean.getRoleId());
 
-							SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-							String date = sdf.format(bean.getDob());
+					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+					String date = sdf.format(bean.getDob());
 				%>
 
 				<tr>
@@ -119,14 +120,12 @@
 					<td style="text-align: center; text-transform: capitalize;"><%=roleBean.getName()%></td>
 					<td style="text-align: center;"><a
 						href="UserCtl?id=<%=bean.getId()%>"
-						<%=(user.getId() == bean.getId() || bean.getRoleId() == RoleBean.ADMIN)
-							? "onclick='return false;'"
-							: ""%>>Edit</a>
+						<%=(user.getId() == bean.getId() || bean.getRoleId() == RoleBean.ADMIN) ? "onclick='return false;'" : ""%>>Edit</a>
 					</td>
 				</tr>
 
 				<%
-					}
+				}
 				%>
 			</table>
 
@@ -146,7 +145,7 @@
 			</table>
 
 			<%
-				} else {
+			} else {
 			%>
 
 			<table>
@@ -157,7 +156,7 @@
 			</table>
 
 			<%
-				}
+			}
 			%>
 		</form>
 	</div>
