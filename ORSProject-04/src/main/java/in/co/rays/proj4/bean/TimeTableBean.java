@@ -8,7 +8,7 @@ import java.util.Date;
  * 
  * @author 
  */
-public class TimeTableBean extends BaseBean {
+public class TimetableBean extends BaseBean {
 
     /**
      * Semester of the exam
